@@ -1,0 +1,85 @@
+{
+  "project_root": "E:\\PyCharm\\Intelligent financial report Q&A system based on RAG and FastAPI",
+  "llm_configs": [
+    {
+      "name": "硅基流动-deepseek-ai/DeepSeek-V4-Pro",
+      "description": "硅基流动deepseek-ai/DeepSeek-V4-Pro，用于数据处理",
+      "base_url": "https://api.siliconflow.cn/v1/",
+      "api_key": "sk-ebxcibywhsybtnzlnubyhaikjdwwrdsbjvbazwzbiloziwdj",
+      "model": "deepseek-ai/DeepSeek-V4-Pro",
+      "temperature": 0.3,
+      "top_p": 0.9,
+      "max_tokens": 4096,
+      "weight": 1.0,
+      "enabled": true
+    },
+    {
+      "name": "硅基流动-deepseek-ai/DeepSeek-V4-Flash",
+      "description": "硅基流动deepseek-ai/DeepSeek-V4-Flash模型",
+      "base_url": "https://api.siliconflow.cn/v1/",
+      "api_key": "sk-ebxcibywhsybtnzlnubyhaikjdwwrdsbjvbazwzbiloziwdj",
+      "model": "deepseek-ai/DeepSeek-V4-Flash",
+      "temperature": 0.7,
+      "top_p": 0.9,
+      "max_tokens": 4096,
+      "weight": 1.0,
+      "enabled": true
+    }
+  ],
+  "agent_llm_indices": [
+    0
+  ],
+  "other_llm_indices": [
+    1
+  ],
+  "embedding": {
+    "use_local": true,
+    "local_model_path": "models/bge-small-zh-v1.5",
+    "dimension": 384,
+    "device": "cpu",
+    "api_base_url": "",
+    "api_key": "",
+    "api_model": ""
+  },
+  "rag": {
+    "chunk_size": 500,
+    "chunk_overlap": 100,
+    "top_k": 15,
+    "min_score": 0.2,
+    "max_kb_context_chunks": 8,
+    "max_attribution_results": 15,
+    "additional_search_top_k": 5,
+    "additional_search_score_ratio": 0.75
+  },
+  "llm_client": {
+    "max_retries": 3,
+    "retry_delay_base": 2.0,
+    "timeout": 60,
+    "json_mode_temperature": 0.3
+  },
+  "embedding_model": {
+    "batch_size": 10
+  },
+  "sql_generator": {
+    "max_sql_length": 2000,
+    "enable_fuzzy_match": true,
+    "fuzzy_match_threshold": 0.7
+  },
+  "chart_generator": {
+    "default_figsize_width": 10.0,
+    "default_figsize_height": 6.0,
+    "dpi": 100,
+    "max_data_points": 50
+  },
+  "agent": {
+    "max_history_turns": 10,
+    "enable_multi_intent_planning": true,
+    "enable_intent_clarification": true,
+    "clarification_confidence_threshold": 0.6,
+    "max_sub_tasks": 5
+  },
+  "max_concurrent_requests": 50,
+  "db_path": "data/financial.db",
+  "knowledge_db_path": "data/knowledge.db",
+  "log_level": "INFO"
+}
