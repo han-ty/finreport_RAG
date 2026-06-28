@@ -1,4 +1,6 @@
 node_modules
+.claude
+.idea
 
 # Python
 __pycache__/
@@ -26,8 +28,13 @@ logs/
 *.log
 
 # Example data (large PDFs)
-示例数据/
+
 
 # OS
 .DS_Store
 Thumbs.db
+
+参数配置详解.txt
+学习文档.docx
+项目学习路径.txt
+

@@ -8,7 +8,12 @@
       "Bash(curl *)",
       "Bash(pip list *)",
       "Bash(PYTHONPATH=\"E:/PyCharm/taidibei\" python test/llm_client.py)",
-      "Bash(PYTHONPATH=E:/PyCharm/taidibei python -c ' *)"
+      "Bash(PYTHONPATH=E:/PyCharm/taidibei python -c ' *)",
+      "Bash(git rev-list *)",
+      "Bash(git cat-file *)",
+      "Bash(awk '/^blob/ {print $2, $3}')",
+      "Bash(git ls-tree *)",
+      "WebSearch"
     ]
   }
 }

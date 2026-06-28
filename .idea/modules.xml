@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/tdb.iml" filepath="$PROJECT_DIR$/.idea/tdb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/finreport-rag.iml" filepath="$PROJECT_DIR$/.idea/finreport-rag.iml" />
     </modules>
   </component>
 </project>

@@ -1,5 +1,5 @@
 {
-  "project_root": "E:\\PyCharm\\Intelligent financial report Q&A system based on RAG and FastAPI",
+  "project_root": "E:\\PyCharm\\finreport-rag",
   "llm_configs": [
     {
       "name": "硅基流动-deepseek-ai/DeepSeek-V4-Pro",
