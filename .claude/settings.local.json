@@ -13,7 +13,14 @@
       "Bash(git cat-file *)",
       "Bash(awk '/^blob/ {print $2, $3}')",
       "Bash(git ls-tree *)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(conda env *)",
+      "Bash(conda run *)",
+      "Bash(where conda *)",
+      "Read(//c/Users/DH/miniconda3/Scripts/**)",
+      "Read(//c/Users/DH/anaconda3/Scripts/**)",
+      "Read(//c/ProgramData/miniconda3/Scripts/**)",
+      "Bash(npm run *)"
     ]
   }
 }
