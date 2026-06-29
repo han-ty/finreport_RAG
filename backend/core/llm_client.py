@@ -25,10 +25,17 @@ class LLMClient:
 
     def _init_clients(self):
         """初始化所有启用的LLM客户端"""
+        import httpx
         for llm_config in self.config.get_enabled_llms():
+            http_client = httpx.AsyncClient(
+                timeout=httpx.Timeout(120.0, connect=30.0),
+                limits=httpx.Limits(max_keepalive_connections=2, max_connections=10),
+                trust_env=False,
+            )
             self.clients[llm_config.name] = AsyncOpenAI(
                 api_key=llm_config.api_key,
                 base_url=llm_config.base_url,
+                http_client=http_client,
             )
 
     def _select_llm(self, prefer_agent: bool = True) -> tuple:
@@ -109,7 +116,23 @@ class LLMClient:
                 else:
                     raise
             except Exception as e:
-                logger.warning(f"LLM [{llm_config.name}] 第{attempt+1}次调用失败: {e}")
+                err_name = type(e).__name__
+                logger.warning(f"LLM [{llm_config.name}] 第{attempt+1}次调用失败: {err_name}: {e}")
+                # Recreate HTTP client on connection errors (fixes Windows httpx connection issues)
+                if 'Connection' in err_name or 'ConnectError' in err_name:
+                    import httpx
+                    logger.info(f"重建 HTTP 客户端 [{llm_config.name}]")
+                    new_http = httpx.AsyncClient(
+                        timeout=httpx.Timeout(120.0, connect=30.0),
+                        limits=httpx.Limits(max_keepalive_connections=2, max_connections=10),
+                        trust_env=False,
+                    )
+                    self.clients[llm_config.name] = AsyncOpenAI(
+                        api_key=llm_config.api_key,
+                        base_url=llm_config.base_url,
+                        http_client=new_http,
+                    )
+                    client = self.clients[llm_config.name]
                 if attempt < max_retries - 1:
                     await asyncio.sleep(2 ** attempt)
                 else:

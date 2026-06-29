@@ -24,7 +24,7 @@
 ```bash
 # 创建Python 3.10环境
 conda create -n taidibei python=3.10 -y
-conda activate taidibei
+conda activate finreport-rag
 
 # 安装依赖
 pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
@@ -104,7 +104,7 @@ snapshot_download('BAAI/bge-small-zh-v1.5', local_dir='./models/bge-small-zh-v1.
 
 ```json
 {
-  "project_root": "E:\\PyCharm\\taidibei",
+  "project_root": "E:\\PyCharm\\finreport-rag",
   ...
 }
 ```
@@ -113,10 +113,10 @@ snapshot_download('BAAI/bge-small-zh-v1.5', local_dir='./models/bge-small-zh-v1.
 
 ```json
 // Windows 示例
-"project_root": "D:\\Competition\\taidibei"
+"project_root": "E:\\PyCharm\\finreport-rag"
 
 // macOS / Linux 示例
-"project_root": "/home/username/taidibei"
+"project_root": "/home/username/finreport-rag"
 ```
 
 > **说明**：`config.json` 中的 `db_path`、`knowledge_db_path`、`embedding.local_model_path` 等路径字段均使用**相对路径**（如 `data/financial.db`），系统会自动将它们拼接到 `project_root` 下解析为绝对路径。如果您不修改 `project_root`，系统会尝试通过代码位置自动推断，但**强烈建议手动确认该值正确**。
@@ -126,7 +126,7 @@ snapshot_download('BAAI/bge-small-zh-v1.5', local_dir='./models/bge-small-zh-v1.
 #### 任务一：构建结构化财报数据库
 
 ```bash
-conda activate taidibei
+conda activate finreport-rag
 python task1/run_task1.py
 ```
 

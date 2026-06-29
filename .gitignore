@@ -22,6 +22,7 @@ models/
 *.db
 *.bin
 *.safetensors
+results
 
 # Logs
 logs/
@@ -33,6 +34,7 @@ logs/
 # OS
 .DS_Store
 Thumbs.db
+.claude
 
 参数配置详解.txt
 学习文档.docx
