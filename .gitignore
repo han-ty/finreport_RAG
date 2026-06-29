@@ -17,6 +17,7 @@ build/
 *.swo
 
 # Large data / models
+data/
 数据/
 models/
 *.db
