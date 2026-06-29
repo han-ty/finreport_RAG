@@ -238,9 +238,16 @@ def classify_report_by_content(text: str, meta: ReportMeta) -> ReportMeta:
         if abbr_match:
             meta.stock_abbr = abbr_match.group(1).strip()
 
-    code_match = re.search(r'(?:股票代码|证券代码)[：:]\s*(\d{6})', text_lower)
-    if code_match and not meta.stock_code:
-        meta.stock_code = code_match.group(1)
+    # 提取股票代码（处理PDF中可能带空格的情况，如 "0 0 0 9 9 9"）
+    if not meta.stock_code:
+        # 先尝试在去空格文本中匹配6位数字
+        text_compact = text_lower.replace(" ", "").replace("\u3000", "")
+        code_match = re.search(r'(?:股票代码|证券代码)[：:]\s*(\d{6})', text_compact)
+        if not code_match:
+            # 如果6位失败，尝试3-5位（PDF可能丢失前导零）
+            code_match = re.search(r'(?:股票代码|证券代码)[：:]\s*(\d{3,5})', text_compact)
+        if code_match:
+            meta.stock_code = code_match.group(1).zfill(6)
 
     return meta
 

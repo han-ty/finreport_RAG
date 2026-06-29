@@ -101,9 +101,12 @@ def import_company_info(db: DatabaseManager, data_dir: Path):
                 record[headers[i]] = val
         
         # 映射到数据库字段
+        # 股票代码补全前导零至6位（Excel中000999会被读成整数999）
+        raw_code = str(record.get("股票代码", ""))
+        stock_code = raw_code.zfill(6) if raw_code and raw_code.isdigit() else raw_code
         db_record = {
             "serial_number": record.get("序号"),
-            "stock_code": str(record.get("股票代码", "")),
+            "stock_code": stock_code,
             "stock_abbr": record.get("A股简称", ""),
             "company_name": record.get("公司名称", ""),
             "english_name": record.get("英文名称", ""),
@@ -681,8 +684,14 @@ def _process_one_pdf(args):
         text, tables = extract_text_and_tables_from_pdf(meta.file_path)
         meta = classify_report_by_content(text, meta)
 
+        # 双向补齐：代码→简称 和 简称→代码
         if not meta.stock_abbr and meta.stock_code in stock_mapping:
             meta.stock_abbr = stock_mapping[meta.stock_code]
+        if not meta.stock_code and meta.stock_abbr:
+            for code, abbr in stock_mapping.items():
+                if abbr == meta.stock_abbr:
+                    meta.stock_code = code
+                    break
 
         if "摘要" in meta.report_type:
             return {"status": "skip", "idx": idx}
