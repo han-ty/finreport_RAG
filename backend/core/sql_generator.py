@@ -171,7 +171,8 @@ INTENT_ANALYSIS_PROMPT = """
 4. 如果问题提到"绘图""可视化""图表""画图"，needs_chart=true
 5. 如果对话历史中有上文且当前问题不完整（如"2025年第三季度的"），则is_followup=true，需要结合上文理解完整意图
 6. 如果问题涉及行业政策、研报观点等非结构化信息，intent=knowledge_query，sql_needed=false
-7. 只有当问题非常模糊无法确定任何具体查询目标时才设needs_clarification=true
+7. 如果问题询问具体财务数据但未明确时间范围（未提及"最新""最近""近N年""近几年"、具体年份如2024年、具体季度如Q1、具体报告期如年报/中报等），必须设needs_clarification=true，clarification_reason="缺少时间范围：用户未指定要查询哪个时期的数据"
+8. 如果问题无法确定任何具体查询目标（公司、指标均缺失），设needs_clarification=true
 """
 
 SQL_GENERATION_PROMPT = """
